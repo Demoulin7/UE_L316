@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello ! ✅</h1>
+
+    {% for actualite in actualites %}
+        <div class="col-12">
+            <h2>{{ actualite.titre }}</h2>
+        </div>
+        <div class="col-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">{{ actualite.titre }}</h3>
+                    <a href="" class="btn btn-primary">Voir l'actualité</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/UE_L316/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/UE_L316/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</div>
+{% endblock %}

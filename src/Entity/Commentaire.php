@@ -54,6 +54,7 @@ class Commentaire
     public function __construct()
     {
         $this->signalements = new ArrayCollection();
+        $this->date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

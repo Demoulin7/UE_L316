@@ -53,6 +53,7 @@ class Actualite
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

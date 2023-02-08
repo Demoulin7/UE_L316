@@ -44,7 +44,7 @@ class ActualiteController extends AbstractController
     public function show(Actualite $actualite): Response
     {
         return $this->render('actualite/show.html.twig', [
-            'actualites' => $actualite,
+            'actualite' => $actualite,
         ]);
     }
 

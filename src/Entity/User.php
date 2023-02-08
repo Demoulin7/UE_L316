@@ -10,60 +10,44 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
- * @method string getUserIdentifier()
- */
-#[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte utilisant cet email')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
      */
-    private $nom;
+    #[ORM\Column]
+    private ?string $password = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $email;
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
+    #[ORM\Column(length: 255)]
+    private ?string $role = "USER";
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $role = 'USER';
+    #[ORM\OneToMany(mappedBy: 'id_user', targetEntity: Actualite::class)]
+    private Collection $actualites;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Actualite::class, mappedBy="id_user")
-     */
-    private $actualites;
+    #[ORM\OneToMany(mappedBy: 'id_user', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="id_user")
-     */
-    private $commentaires;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="id_user")
-     */
-    private $signalements;
+    #[ORM\OneToMany(mappedBy: 'id_user', targetEntity: Signalement::class)]
+    private Collection $signalements;
 
     public function __construct()
     {
@@ -75,6 +59,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -97,30 +146,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -148,7 +173,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function addActualite(Actualite $actualite): self
     {
         if (!$this->actualites->contains($actualite)) {
-            $this->actualites[] = $actualite;
+            $this->actualites->add($actualite);
             $actualite->setIdUser($this);
         }
 
@@ -178,7 +203,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function addCommentaire(Commentaire $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
+            $this->commentaires->add($commentaire);
             $commentaire->setIdUser($this);
         }
 
@@ -208,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function addSignalement(Signalement $signalement): self
     {
         if (!$this->signalements->contains($signalement)) {
-            $this->signalements[] = $signalement;
+            $this->signalements->add($signalement);
             $signalement->setIdUser($this);
         }
 
@@ -225,32 +250,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-
-    public function getRoles(): array
-    {
-        // TODO: Implement getRoles() method.
-        return $this->role;
-    }
-
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
-    }
-
-    public function getUsername(): string
-    {
-        // TODO: Implement getUsername() method.
-        return $this->email;
-    }
-
-    public function __call($name, $arguments)
-    {
-        // TODO: Implement @method string getUserIdentifier()
-    }
-
-    public function getSalt()
-    {
-        return null;
     }
 }

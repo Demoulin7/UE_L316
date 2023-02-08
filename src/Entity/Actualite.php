@@ -5,55 +5,39 @@ namespace App\Entity;
 use App\Repository\ActualiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ActualiteRepository::class)
- */
+#[ORM\Entity(repositoryClass: ActualiteRepository::class)]
 class Actualite
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $titre;
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $contenu;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $contenu = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $auteur;
+    #[ORM\Column(length: 255)]
+    private ?string $auteur = null;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="actualites")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $id_user;
+    #[ORM\ManyToOne(inversedBy: 'actualites')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $id_user = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="id_actualite")
-     */
-    private $commentaires;
+    #[ORM\OneToMany(mappedBy: 'id_actualite', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
-        $this->date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -132,7 +116,7 @@ class Actualite
     public function addCommentaire(Commentaire $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
+            $this->commentaires->add($commentaire);
             $commentaire->setIdActualite($this);
         }
 

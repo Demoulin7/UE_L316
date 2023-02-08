@@ -22,14 +22,13 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, ['label' => 'E-mail'])
             ->add('nom', TextType::class, ['label' => 'Nom'])
             ->add('prenom', TextType::class, ['label' => 'Prénom'])
-            ->add('RGPDConscent', CheckboxType::class, [
+            ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous devez accepter les termes d\'utilisation.',
+                        'message' => 'You should agree to our terms.',
                     ]),
                 ],
-                'label' => 'En m\'inscrivant j\'accepte la RGPT'
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -38,16 +37,15 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Entrez un mot de passe',
+                        'message' => 'Please enter a password',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir minimum {{ limit }} charactères',
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Mot de passe'
             ])
         ;
     }

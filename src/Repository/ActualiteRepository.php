@@ -21,7 +21,7 @@ class ActualiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Actualite::class);
     }
 
-    public function add(Actualite $entity, bool $flush = false): void
+    public function save(Actualite $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

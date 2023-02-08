@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+    <h1>Hello {{ controller_name }}! ✅</h1>
 
     {% for actualite in actualites %}
         <div class="col-12">
@@ -18,18 +18,19 @@
         <div class="col-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <h3 class="card-title">{{ actualite.titre }}</h3>
+                    <h3 class="card-title">{{ actualite.contenu }}</h3>
                     <a href="" class="btn btn-primary">Voir l'actualité</a>
                 </div>
             </div>
         </div>
     {% endfor %}
 
+    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/UE_L316/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/UE_L316/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/projet_actualites/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
         <li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Se déconecter</a></li>
     </ul>
 </div>
 {% endblock %}

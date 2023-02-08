@@ -3,36 +3,26 @@
 namespace App\Entity;
 
 use App\Repository\SignalementRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=SignalementRepository::class)
- */
+#[ORM\Entity(repositoryClass: SignalementRepository::class)]
 class Signalement
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="signalements")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $id_user;
+    #[ORM\ManyToOne(inversedBy: 'signalements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $id_user = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Commentaire::class, inversedBy="signalements")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $id_commentaire;
+    #[ORM\ManyToOne(inversedBy: 'signalements')]
+    private ?Commentaire $id_commentaire = null;
 
     public function getId(): ?int
     {

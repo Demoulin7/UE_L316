@@ -5,56 +5,39 @@ namespace App\Entity;
 use App\Repository\CommentaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CommentaireRepository::class)
- */
+#[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $contenu;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $contenu = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $auteur;
+    #[ORM\Column(length: 255)]
+    private ?string $auteur = null;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $id_user;
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?User $id_user = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Actualite::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $id_actualite;
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Actualite $id_actualite = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="id_commentaire")
-     */
-    private $signalements;
+    #[ORM\OneToMany(mappedBy: 'id_commentaire', targetEntity: Signalement::class)]
+    private Collection $signalements;
 
     public function __construct()
     {
         $this->signalements = new ArrayCollection();
-        $this->date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -133,7 +116,7 @@ class Commentaire
     public function addSignalement(Signalement $signalement): self
     {
         if (!$this->signalements->contains($signalement)) {
-            $this->signalements[] = $signalement;
+            $this->signalements->add($signalement);
             $signalement->setIdCommentaire($this);
         }
 

@@ -21,7 +21,7 @@ class CommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaire::class);
     }
 
-    public function add(Commentaire $entity, bool $flush = false): void
+    public function save(Commentaire $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

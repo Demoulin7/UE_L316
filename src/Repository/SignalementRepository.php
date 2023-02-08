@@ -21,7 +21,7 @@ class SignalementRepository extends ServiceEntityRepository
         parent::__construct($registry, Signalement::class);
     }
 
-    public function add(Signalement $entity, bool $flush = false): void
+    public function save(Signalement $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

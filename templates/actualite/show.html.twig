@@ -30,19 +30,6 @@
         </tbody>
     </table>
 
-    {% for commentaires in commentaire %}
-        <div class="col-12">
-            <h2>{{ commentaire.auteur }}</h2>
-        </div>
-        <div class="col-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h3 class="card-title">{{ actualite.contenu }}</h3>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-
     <a href="{{ path('app_actualite_index') }}">back to list</a>
 
     <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>

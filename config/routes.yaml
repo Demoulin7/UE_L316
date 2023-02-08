@@ -6,10 +6,3 @@ controllers:
 index:
     path: /
     controller: App\Controller\HomeController::index
-actualite:
-    path: /actualite
-    # the controller value has the format 'controller_class::method_name'
-    controller: App\Controller\ActualiteController::index
-kernel:
-    resource: App\Kernel
-    type: attribute

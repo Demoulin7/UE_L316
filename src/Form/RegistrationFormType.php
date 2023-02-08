@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, ['label' => 'E-mail'])
             ->add('nom', TextType::class, ['label' => 'Nom'])
             ->add('prenom', TextType::class, ['label' => 'Prénom'])
-            ->add('agreeTerms', CheckboxType::class, [
+            ->add('agreeRGPD', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

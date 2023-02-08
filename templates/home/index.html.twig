@@ -19,7 +19,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h3 class="card-title">{{ actualite.contenu }}</h3>
-                    <a href="" class="btn btn-primary">Voir l'actualité</a>
+                    <a href="/actualite/{{ actualite.id }}" class="btn btn-primary">Voir l'actualité</a>
                 </div>
             </div>
         </div>
@@ -27,9 +27,8 @@
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Eddy/Desktop/Projets/projet_actualites/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
+        <li><a href="/actualite">Actualites</a></li>
         <li><a href="/logout">Se déconecter</a></li>
     </ul>
 </div>

@@ -6,3 +6,9 @@ controllers:
 index:
     path: /
     controller: App\Controller\HomeController::index
+actualite:
+    path: /actualite/
+    controller: src\Controller\ActualiteController::index
+commentaire:
+    path: /commentaire/
+    controller: src\Controller\CommentaireController::index

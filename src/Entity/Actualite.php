@@ -50,6 +50,10 @@ class Actualite
         return $this->titre;
     }
 
+    public function __toString() {
+        return $this->getTitre();
+      }
+
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;

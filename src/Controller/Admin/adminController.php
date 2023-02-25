@@ -25,6 +25,8 @@ class adminController extends AbstractDashboardController
     public function index(): Response
     {
 
+        //demande si le compte à le role admin.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
         $url = $this->adminUrlGenerator
         ->setController(UserCrudController::class)
         ->setController(ActualiteCrudController::class)

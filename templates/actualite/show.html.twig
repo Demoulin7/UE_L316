@@ -30,6 +30,19 @@
         </tbody>
     </table>
 
+    {% for commentaire in actualite.commentaires %}
+    <p>{{ commentaire.auteur }}</p>
+    <p>{{ commentaire.date|date('d-m-Y') }}</p>
+    <p>{{ commentaire.contenu }}</p>
+    {% else %}
+         <div>pas de commentaire sur cette article.</div>
+     
+    {% endfor %}
+
+    <h2>poste un commantaire</h2>
+
+    {{ form(comment_form) }}
+
     <a href="{{ path('app_actualite_index') }}">back to list</a>
 
     <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>

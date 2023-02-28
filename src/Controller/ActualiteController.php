@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Actualite;
+use App\Form\CommentaireType;
 use App\Form\ActualiteType;
 use App\Repository\ActualiteRepository;
+use App\Repository\CommentaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +44,14 @@ class ActualiteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_actualite_show', methods: ['GET'])]
-    public function show(Actualite $actualite): Response
+    public function show(Actualite $actualite, CommentaireRepository $commentaireRepository): Response
     {
+        $comment = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $comment);
         return $this->render('actualite/show.html.twig', [
             'actualite' => $actualite,
+            'comment_form' => $form,
+            'commentaires' => $commentaireRepository->findAll(),
         ]);
     }
 

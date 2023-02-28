@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -59,6 +60,7 @@ class Commentaire
 
     public function getAuteur(): ?string
     {
+
         return $this->auteur;
     }
 

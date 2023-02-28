@@ -24,17 +24,5 @@
             </div>
         </div>
     {% endfor %}
-
-    This friendly message is coming from:
-    <ul>
-        <li><a href="/register">Créer un compte</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/actualite">Actualites</a></li>
-        <li><a href="/commentaire">Commentaires</a></li>
-        <li><a href="/logout">Se déconecter</a></li>
-        {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="/admin">Admin</a></li>
-        {% endif %}
-    </ul>
 </div>
 {% endblock %}

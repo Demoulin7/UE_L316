@@ -33,7 +33,7 @@ class adminController extends AbstractDashboardController
         ->setController(CommentaireCrudController::class)
         ->generateUrl();
 
-        return $this->redirect($url);
+        // return $this->redirect($url);
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -50,6 +50,7 @@ class adminController extends AbstractDashboardController
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
         // return $this->render('some/path/my-dashboard.html.twig');
+        return $this->render('admin/index.html.twig');
     }
 
     public function configureDashboard(): Dashboard

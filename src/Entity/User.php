@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,7 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = ["ROLER_USER"];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -54,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->actualites = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->signalements = new ArrayCollection();
+
+        // Ajouter le rôle 'ROLE_USER' par défaut
+        $this->roles[] = 'ROLE_USER';
     }
 
     public function getId(): ?int
@@ -87,16 +92,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    
-
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // Ajouter le rôle 'ROLE_ADMIN' si l'utilisateur l'a
+        if (in_array(self::ROLE_ADMIN, $roles)) {
+            $roles[] = self::ROLE_ADMIN;
+        }
+        // garantir que chaque utilisateur a au moins ROLE_USER
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
 
         return array_unique($roles);
     }
@@ -107,6 +116,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
 
     /**
      * @see PasswordAuthenticatedUserInterface

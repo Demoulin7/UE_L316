@@ -25,7 +25,6 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
 
-    //mettre la datte actuelle automatiquement !
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 

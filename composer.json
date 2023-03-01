@@ -6,10 +6,15 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
+<<<<<<< HEAD
         "php": ">=8.1.0",
+=======
+        "php": ">=8.0.1",
+>>>>>>> 2609706a3cf5838c9fa234b13e61f2eace27d1a1
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.0",
+        "doctrine/dbal": "^3.6",
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",

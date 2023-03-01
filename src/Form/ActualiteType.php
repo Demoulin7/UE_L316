@@ -19,13 +19,8 @@ class ActualiteType extends AbstractType
             ->add('titre')
             ->add('contenu')
             ->add('auteur')
-<<<<<<< HEAD
             //->add('date')
 
-=======
-            ->add('date')
-            ->add('id_user')
->>>>>>> 5244ab2c88795cfa973e71194acc392c83d0de3c
         ;
     }
 

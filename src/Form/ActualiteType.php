@@ -6,6 +6,7 @@ use App\Entity\Actualite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class ActualiteType extends AbstractType
 {
@@ -16,7 +17,7 @@ class ActualiteType extends AbstractType
             ->add('contenu')
             ->add('auteur')
             // ->add('date') pour ne pas afficher la modification de la date dans le formulaire.
-            ->add('id_user')
+            ->add('id_user',EmailType::class , array('label'=>'Email'))
         ;
     }
 

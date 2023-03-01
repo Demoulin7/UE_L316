@@ -38,6 +38,8 @@ class Actualite
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        // remplir le champ date par la date d'aujoud'hui automatiquement.
+        $this->date = new \DateTime('now');
     }
 
     public function getId(): ?int

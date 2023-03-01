@@ -16,8 +16,8 @@ class ActualiteType extends AbstractType
             ->add('titre')
             ->add('contenu')
             ->add('auteur')
-            // ->add('date') pour ne pas afficher la modification de la date dans le formulaire.
-            ->add('id_user',EmailType::class , array('label'=>'Email'))
+            ->add('date')
+            ->add('id_user')
         ;
     }
 

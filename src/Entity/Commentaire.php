@@ -39,6 +39,9 @@ class Commentaire
     public function __construct()
     {
         $this->signalements = new ArrayCollection();
+        //on veut que la date du commentaire soit mise à jour automatiquement.
+        $this->date = new \DateTime('now');
+
     }
 
     public function getId(): ?int

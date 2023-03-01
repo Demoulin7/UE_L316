@@ -25,7 +25,8 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    //mettre la datte actuelle automatiquement !
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'actualites')]
@@ -38,6 +39,8 @@ class Actualite
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        // remplir le champ date par la date d'aujoud'hui automatiquement.
+        $this->date = new \DateTime('now');
     }
 
     public function getId(): ?int

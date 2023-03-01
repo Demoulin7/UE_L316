@@ -25,7 +25,7 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'actualites')]

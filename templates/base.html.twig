@@ -22,27 +22,27 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="navbar-brand active" aria-current="page" href="/">Groupe B</a>
+                                <a class="navbar-brand" aria-current="page" href="/">Groupe B</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Accueil</a>
+                                <a class="nav-link" aria-current="page" href="/">Accueil</a>
                             </li>
                             {# unitile de la garder apres avoir modifer le boutton se connecter/se deconnecter qui s'occupe de tout mtn  #}
                             {# <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/login">Connexion</a>
                             </li> #}
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/actualite">Actualités</a>
+                                <a class="nav-link" aria-current="page" href="/actualite">Actualités</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/register">S'inscrire</a>
+                                <a class="nav-link" aria-current="page" href="/register">S'inscrire</a>
                             </li>
                             <li class="nav-item">
                                 {# <a class="nav-link active" aria-current="page" href="/logout">Se déconnecter</a> #}
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    <a href="/logout" id="logout-button" class="nav-link active">Se déconnecter</a>
+                                    <a href="/logout" id="logout-button" class="nav-link">Se déconnecter</a>
                                 {% else %}
-                                    <a href="/login" id="login-button" class="nav-link active">Se connecter</a>
+                                    <a href="/login" id="login-button" class="nav-link">Se connecter</a>
                                 {% endif %}
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}

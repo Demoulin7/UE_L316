@@ -25,7 +25,8 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    //ll faut impérativement que ça soit mutable et non pas immutable, mutable veut dire que c'est nous qui définissent la valeur de la date, et c'est ce qu'on fait dans le constructeur par la suite on définit la date par la date d'aujourd'hui, si on fait immutable ça nemarche pas !
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'actualites')]

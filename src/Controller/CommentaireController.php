@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Actualite;
 use App\Entity\Signalement;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
@@ -23,9 +24,17 @@ class CommentaireController extends AbstractController
     }
 
     #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
+    public function new(Request $request, CommentaireRepository $commentaireRepository, Security $security): Response
     {
+        // Récupérer l'utilisateur courant:
+        $user = $this->getUser();
+
+        //créer une instance du classe Commentaire()
         $commentaire = new Commentaire();
+
+        // Définir l'utilisateur courant comme étant le propriétaire de l'actualité:
+        $commentaire->setIdUser($user);
+
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 

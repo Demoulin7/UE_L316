@@ -54,12 +54,12 @@ class ActualiteController extends AbstractController
     #[Route('/{id}', name: 'app_actualite_show', methods: ['GET'])]
     public function show(Actualite $actualite, CommentaireRepository $commentaireRepository): Response
     {
-        $comment = new Commentaire();
-        $form = $this->createForm(CommentaireType::class, $comment);
+        // $comment = new Commentaire(); Aucun besoin de créer une instance de Commentaire
+        // $form = $this->createForm(CommentaireType::class, $comment);
         return $this->render('actualite/show.html.twig', [
             'actualite' => $actualite,
-            'comment_form' => $form,
             'commentaires' => $commentaireRepository->findAll(),
+            // 'comment_form' => $form, //Aucun besoin d'afficher le formulaire d'ajout du commentaire à la même page d'affichage d'actualité. Par contre on affiche un boutton pour ajouter un comment
         ]);
     }
 

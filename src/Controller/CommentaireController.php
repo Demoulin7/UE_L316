@@ -23,11 +23,12 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
+    #[Route('/actualite/{id}/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, CommentaireRepository $commentaireRepository, Actualite $actualite): Response
     {
         // Récupérer l'utilisateur courant:
         $user = $this->getUser();
+        
 
         //créer une instance du classe Commentaire()
         $commentaire = new Commentaire();
@@ -35,13 +36,16 @@ class CommentaireController extends AbstractController
         // Définir l'utilisateur courant comme étant le propriétaire de l'actualité:
         $commentaire->setIdUser($user);
 
+        //Définir l'actualité séléctionné comme id du commentaire :
+        $commentaire->setIdActualite($actualite);
+
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaireRepository->save($commentaire, true);
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('commentaire/new.html.twig', [

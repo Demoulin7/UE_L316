@@ -24,7 +24,7 @@
                 <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_actualite_show', {'id': actualite.id}) }}">show</a>
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
                     {% endif %}
                 </td>
@@ -36,10 +36,8 @@
         {% endfor %}
         </tbody>
     </table>
-    {# seule les utilisateur de role user et admin peuvent écrire, modifier ou supprimer un message #}
     {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_actualite_new') }}">Crée une nouvelle actualité</a>
+        <a href="{{ path('app_actualite_new') }}">Crée un nouveaux</a>
     {% endif %}
-
     <a href="/">Revenir à l'accueil</a>
 {% endblock %}

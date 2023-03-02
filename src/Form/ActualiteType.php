@@ -10,16 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActualiteType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    {        
+
         $builder
-            // ->add('id_user')
-            ->add('id_user')
+
             ->add('titre')
             ->add('contenu')
             ->add('auteur')
-            //->add('date')
-
         ;
     }
 

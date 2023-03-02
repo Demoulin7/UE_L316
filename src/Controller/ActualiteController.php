@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/actualite')]
 class ActualiteController extends AbstractController
@@ -25,9 +26,16 @@ class ActualiteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_actualite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ActualiteRepository $actualiteRepository): Response
+    public function new(Request $request, ActualiteRepository $actualiteRepository, Security $security): Response
     {
+        // Récupérer l'utilisateur courant:
+        $user = $this->getUser();
+
         $actualite = new Actualite();
+
+        // Définir l'utilisateur courant comme étant le propriétaire de l'actualité:
+        $actualite->setIdUser($user);
+
         $form = $this->createForm(ActualiteType::class, $actualite);
         $form->handleRequest($request);
 

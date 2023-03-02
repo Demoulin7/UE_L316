@@ -24,7 +24,7 @@ class CommentaireController extends AbstractController
     }
 
     #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CommentaireRepository $commentaireRepository, Security $security): Response
+    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
     {
         // Récupérer l'utilisateur courant:
         $user = $this->getUser();

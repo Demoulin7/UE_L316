@@ -9,18 +9,32 @@
 
     <p class="lead">Ici vous pouvez voir nos article les plus recement crée. </p>
 
-    {% for actualite in actualites %}
-        <div>
-            <h3>{{ actualite.titre }}</h3>
-        </div>
-        <div class="col2 container-md">
-            <div class="py-2 text-center mt-2">
-                <div class="card-body">
-                    <p>{{ actualite.contenu }}</p>
-                    <a href="/actualite/{{ actualite.id }}" class="btn btn-primary">Voir l'actualité</a>
-                </div>
+    <div class="container">
+        
+        {% for actualite in actualites|batch(3) %}
+            <div class="row">
+                {% for triplet in actualite %}
+                    <div class="col-md-4">
+                        <div>
+                            <h3>{{ triplet.titre }}</h3>
+                        </div>
+                        <div class="container-md">
+                            <div class="py-2 text-center mt-2">
+                                <div class="card-body">
+                                    <p>{{ triplet.contenu }}</p>
+                                    <a href="/actualite/{{ triplet.id }}" class="btn btn-primary">Voir l'actualité</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+
+    </div>
 </div>
+
+
 {% endblock %}
+
+

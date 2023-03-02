@@ -3,17 +3,40 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1 class="py-5 text-center mt-5">Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeRGPD) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Register</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
+                            <div class="form-group">
+                                {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.plainPassword, {
+                                    'label': 'Password',
+                                    'attr': {'class': 'form-control', 'placeholder': 'Password'}
+                                }) }}
+                            </div>
+                            <div class="form-group form-check">
+                                {{ form_row(registrationForm.agreeRGPD, {'label_attr': {'class': 'form-check-label'}, 'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(registrationForm.agreeRGPD, 'I agree to the terms and conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

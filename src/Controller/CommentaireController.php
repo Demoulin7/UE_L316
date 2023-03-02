@@ -23,7 +23,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/actualite/{id}/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    #[Route('/{id}/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentaireRepository $commentaireRepository, Actualite $actualite): Response
     {
         // Récupérer l'utilisateur courant:

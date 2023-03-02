@@ -3,47 +3,56 @@
 {% block title %}Actualite index{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css%22%3E
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 {% endblock %}
 
 {% block body %}
     <div class="container">
         <h1 class="py-5 text-center mt-5">Actualite index</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Titre</th>
-                <th>Contenu</th>
-                <th>Auteur</th>
-                <th>Date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for actualite in actualites %}
-            <tr>
-                <td>{{ actualite.titre }}</td>
-                <td>{{ actualite.contenu }}</td>
-                <td>{{ actualite.auteur }}</td>
-                <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_actualite_show', {'id': actualite.id}) }}" class="btn btn-primary">show</a>
-                    <a href="{{ path('app_commentaire_new', {'id': actualite.id}) }}" class="btn btn-success">Add comment</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}" class="btn btn-warning">edit</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_actualite_new') }}" class="btn btn-primary">Crée un nouveau</a>
-    {% endif %}
-    <a href="/" class="btn btn-secondary">Revenir à l'accueil</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Contenu</th>
+                    <th>Auteur</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for actualite in actualites %}
+                {% set content = actualite.contenu %}
+                {% set words = content|split(' ') %}
+
+                {% if words|length > 10 %}
+                    {% set words = words|slice(0, 10) %}
+                    {% set content = words|join(' ') ~ '...' %}
+                {% endif %}
+                
+                <tr>
+                    <td>{{ actualite.titre }}</td>
+                    <td>{{ content }}</td>
+                    <td>{{ actualite.auteur }}</td>
+                    <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm me-2" href="{{ path('app_actualite_show', {'id': actualite.id}) }}">Show</a>
+                        <a class="btn btn-success btn-sm me-2" href="{{ path('app_commentaire_new', {'id': actualite.id}) }}">Add comment</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-warning btn-sm me-2" href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">Edit</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('app_actualite_new') }}">Créer un nouveau</a>
+        {% endif %}
+        <a class="btn btn-secondary" href="/">Revenir à l'accueil</a>
+    </div>
 {% endblock %}

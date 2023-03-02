@@ -36,7 +36,10 @@
         {% endfor %}
         </tbody>
     </table>
+    {# seule les utilisateur de role user et admin peuvent écrire, modifier ou supprimer un message #}
+    {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_actualite_new') }}">Crée une nouvelle actualité</a>
+    {% endif %}
 
-    <a href="{{ path('app_actualite_new') }}">Crée un nouveaux</a>
     <a href="/">Revenir à l'accueil</a>
 {% endblock %}

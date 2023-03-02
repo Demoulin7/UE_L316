@@ -6,6 +6,7 @@ use App\Repository\ActualiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActualiteRepository::class)]
@@ -111,6 +112,17 @@ class Actualite
 
         return $this;
     }
+
+
+    /**
+     * Check if the user owns this actualite.
+     */
+    public function belongsToUser(UserInterface $user): bool
+    {
+        return $this->getIdUser() === $user->getId();
+    }
+
+
 
     /**
      * @return Collection<int, Commentaire>

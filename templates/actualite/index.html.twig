@@ -38,7 +38,7 @@
         </tbody>
     </table>
     {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_actualite_new') }}">Crée un nouveaux</a>
+        <a href="{{ path('app_actualite_new') }}">Créer une nouvelle actualité</a>
     {% endif %}
     <a href="/">Revenir à l'accueil</a>
 {% endblock %}

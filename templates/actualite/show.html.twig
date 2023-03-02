@@ -55,10 +55,7 @@
         <div class="alert alert-info">Pas de commentaire sur cet article.</div>
         {% endfor %}
 
-        {% if is_granted('ROLE_USER') %}
-        <h2 class="mb-4">Ajouter un commentaire</h2>
-        {{ form(comment_form) }}
-        {% endif %}
+        
 
         <a href="{{ path('app_actualite_index') }}" class="btn btn-secondary">Retour à la liste</a>
     </div>

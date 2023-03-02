@@ -24,6 +24,7 @@
                 <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_actualite_show', {'id': actualite.id}) }}">show</a>
+                    <a href="{{ path('app_commentaire_new', {'id': actualite.id}) }}">Add comment</a>
                     {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
                     {% endif %}

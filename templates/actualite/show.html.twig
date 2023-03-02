@@ -40,11 +40,17 @@
      
     {% endfor %}
 
-    {% if is_granted('ROLE_USER') %}
+    {# {% if is_granted('ROLE_USER') %}
     <h2>poste un commantaire</h2>
 
     {{ form(comment_form) }}
-    {% endif %}
+    {% endif %} #}
 
     <a href="{{ path('app_actualite_index') }}">revenir à la liste</a>
+
+    {# définir l'id de l'actualité en question pour pouvoir la passer en url: #}
+    {% set actualiteId = actualite.id %} 
+    
+    <a href="{{ path('app_commentaire_new', {'id': actualiteId}) }}">Ajouter un commentaire</a>
+
 {% endblock %}

@@ -21,7 +21,7 @@ class adminController extends AbstractDashboardController
         private AdminUrlGenerator $adminUrlGenerator
     )   {    
     }
-    #[Route('/admin', name: 'admin')]
+    #[Route('/uel316/public/admin', name: 'admin')]
     public function index(): Response
     {
 

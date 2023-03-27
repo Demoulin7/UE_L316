@@ -31,7 +31,7 @@
                             <div class="py-2 text-center mt-2">
                                 <div class="card-body">
                                     <p>{{ content }}</p>
-                                    <a href="/actualite/{{ triplet.id }}" class="btn btn-primary">Voir l'actualité</a>
+                                    <a href="{{ path('app_actualite_index') }}/{{ triplet.id }}" class="btn btn-primary">Voir l'actualité</a>
                                 </div>
                             </div>
                         </div>

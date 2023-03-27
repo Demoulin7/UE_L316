@@ -53,6 +53,6 @@
         {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
             <a class="btn btn-primary" href="{{ path('app_actualite_new') }}">Créer un nouveau</a>
         {% endif %}
-        <a class="btn btn-secondary" href="/">Revenir à l'accueil</a>
+        <a class="btn btn-secondary" href="{{ path('app_home') }}">Revenir à l'accueil</a>
     </div>
 {% endblock %}

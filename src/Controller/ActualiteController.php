@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-#[Route('/uel316/public/actualite')]
+#[Route('/actualite')]
 class ActualiteController extends AbstractController
 {
     #[Route('/', name: 'app_actualite_index', methods: ['GET'])]
